@@ -1,6 +1,8 @@
 # claude-memory-os
 
-**A file-based memory and project operating system for [Claude Code](https://claude.com/claude-code).**
+**A file-based memory and project operating system for
+[Claude Code](https://claude.com/claude-code) and
+[Codex](https://developers.openai.com/codex).**
 
 Claude Code gives you a `CLAUDE.md` and a memory directory. It does not tell you
 how to organise them — so most setups end the same way: one file per project,
@@ -107,19 +109,35 @@ See [docs/srp-zoning.md](docs/srp-zoning.md).
 ```bash
 git clone https://github.com/Lai-Sheng/claude-memory-os.git
 cd claude-memory-os
+```
 
+**Claude Code**
+
+```bash
 cp template/CLAUDE.md      ~/.claude/CLAUDE.md
 cp template/commands/*.md  ~/.claude/commands/
 cp -r template/memory/*    ~/.claude/projects/<workspace>/memory/
+```
+
+**Codex**
+
+```bash
+cp template/AGENTS.md      ~/.codex/AGENTS.md
+cp template/commands/*.md  ~/.codex/commands/
+cp -r template/memory/*    ~/AgentMemory/
 ```
 
 Then fill in the `{{PLACEHOLDERS}}`, create your first project from
 `template/memory/projects/_project_template/`, and run `/save-progress` at the
 end of your next session.
 
-Full walkthrough: **[docs/getting-started.md](docs/getting-started.md)**
+Full walkthrough: **[docs/getting-started.md](docs/getting-started.md)** ·
+Codex specifics: **[docs/codex.md](docs/codex.md)**
 
-⚠️ Already have a `CLAUDE.md`? **Merge**, do not overwrite.
+⚠️ Already have a `CLAUDE.md` / `AGENTS.md`? **Merge**, do not overwrite.
+⚠️ On Codex, set `{{MEMORY_ROOT}}` in **both** `AGENTS.md` §0 and
+`memory/README.md` — Codex does not auto-load the index, so it has to be told
+where it lives. See [docs/codex.md](docs/codex.md).
 
 ---
 
@@ -130,6 +148,7 @@ Full walkthrough: **[docs/getting-started.md](docs/getting-started.md)**
 | [getting-started.md](docs/getting-started.md) | 15-minute setup, sanity checks, common mistakes |
 | [architecture.md](docs/architecture.md) | The four layers and why each boundary exists |
 | [srp-zoning.md](docs/srp-zoning.md) | Splitting a project that outgrew core/state |
+| [codex.md](docs/codex.md) | Codex install, the memory-bootstrap difference, running both agents |
 
 ---
 
@@ -137,11 +156,13 @@ Full walkthrough: **[docs/getting-started.md](docs/getting-started.md)**
 
 ```
 template/
-├── CLAUDE.md                          L1 router
-├── commands/
+├── CLAUDE.md                          L1 router — Claude Code
+├── AGENTS.md                          L1 router — Codex (adds §0 memory bootstrap)
+├── commands/                          shared by both
 │   ├── save-progress.md               the enforcement loop
 │   └── commands.md
-└── memory/
+└── memory/                            shared by both — plain markdown
+    ├── README.md                      memory-root ownership declaration
     ├── MEMORY.md                      L2 index
     ├── user_profile.md
     ├── feedback_memory_no_bloat.md    the governance rule
@@ -149,6 +170,9 @@ template/
     └── logs/                          day files + archive.md
 docs/
 ```
+
+The memory tree is **identical on both platforms**. Only the router file and the
+command directory differ.
 
 ---
 
@@ -175,9 +199,12 @@ have noticed replies drifting toward last month's topic.
 **Probably not** if you use Claude Code for one repo at a time and start fresh
 each session — plain `CLAUDE.md` is fine, and this would be overhead.
 
-**Not Claude-specific in principle.** The layering applies to any agent that
-loads files into a context window; only the paths and the slash-command format
-are Claude Code specifics.
+**Works on Claude Code and Codex**, with the same memory tree — see
+[docs/codex.md](docs/codex.md). The layering applies to any agent that loads
+files into a context window; only the router file and the command directory are
+platform-specific.
+
+> The repo keeps its original name for URL stability. It is not Claude-only.
 
 ---
 

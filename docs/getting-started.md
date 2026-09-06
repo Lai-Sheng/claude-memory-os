@@ -2,6 +2,10 @@
 
 15 minutes to a working setup.
 
+> **On Codex?** The memory layers are identical, but the router file and one
+> bootstrap step differ. Read **[codex.md](codex.md)** instead of §0–§1 here,
+> then rejoin at §2.
+
 ## 0. Where things go
 
 Claude Code reads user-level config from `~/.claude/`:
@@ -116,6 +120,7 @@ Run these occasionally:
 | Router size | `wc -c CLAUDE.md` | ~6 000 bytes |
 | Biggest project file | `ls -S projects/*/core.md \| head -1` | 16 000 bytes |
 | Any `state.md` linked from the index? | `grep state.md MEMORY.md` | should be empty |
+| Codex only: is the memory root set? | `grep MEMORY_ROOT ~/.codex/AGENTS.md` | no `{{...}}` left |
 
 ## Common mistakes
 

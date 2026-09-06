@@ -1,6 +1,7 @@
 # claude-memory-os
 
-**給 [Claude Code](https://claude.com/claude-code) 用的檔案式記憶／專案作業系統。**
+**給 [Claude Code](https://claude.com/claude-code) 和
+[Codex](https://developers.openai.com/codex) 用的檔案式記憶／專案作業系統。**
 
 Claude Code 給了你 `CLAUDE.md` 和一個記憶資料夾，但沒告訴你該怎麼組織它們——
 於是大多數人的結局都一樣：一個專案一個檔、只增不刪，直到每次對話都要載入兩萬個
@@ -99,18 +100,33 @@ Step 0 之所以存在，是因為**這個指令的第一版正是它現在在�
 ```bash
 git clone https://github.com/Lai-Sheng/claude-memory-os.git
 cd claude-memory-os
+```
 
+**Claude Code**
+
+```bash
 cp template/CLAUDE.md      ~/.claude/CLAUDE.md
 cp template/commands/*.md  ~/.claude/commands/
 cp -r template/memory/*    ~/.claude/projects/<workspace>/memory/
 ```
 
+**Codex**
+
+```bash
+cp template/AGENTS.md      ~/.codex/AGENTS.md
+cp template/commands/*.md  ~/.codex/commands/
+cp -r template/memory/*    ~/AgentMemory/
+```
+
 然後把 `{{PLACEHOLDER}}` 填掉、從 `template/memory/projects/_project_template/`
 複製出你的第一個專案，下次工作結束前跑一次 `/save-progress`。
 
-完整步驟：**[docs/getting-started.md](docs/getting-started.md)**
+完整步驟：**[docs/getting-started.md](docs/getting-started.md)**、
+Codex 專屬：**[docs/codex.md](docs/codex.md)**
 
-⚠️ 已經有 `CLAUDE.md` 了？請**合併**，不要直接覆蓋。
+⚠️ 已經有 `CLAUDE.md`／`AGENTS.md` 了？請**合併**，不要直接覆蓋。
+⚠️ Codex 端要在 `AGENTS.md` §0 **和** `memory/README.md` **兩處**都填
+`{{MEMORY_ROOT}}`——Codex 不會自動載入索引，必須明文告訴它記憶放在哪。
 
 ---
 
@@ -121,6 +137,7 @@ cp -r template/memory/*    ~/.claude/projects/<workspace>/memory/
 | [getting-started.md](docs/getting-started.md) | 15 分鐘上手、健檢指令、常見錯誤 |
 | [architecture.md](docs/architecture.md) | 四層架構，以及每條界線為什麼存在 |
 | [srp-zoning.md](docs/srp-zoning.md) | 專案長大到 core/state 裝不下時怎麼拆 |
+| [codex.md](docs/codex.md) | Codex 安裝、記憶載入的關鍵差異、雙 agent 並存 |
 
 ---
 
@@ -143,8 +160,23 @@ cp -r template/memory/*    ~/.claude/projects/<workspace>/memory/
 **大概不適合**：你一次只開一個 repo、每次都從零開始——原生的 `CLAUDE.md` 就夠了，
 這套只會變成負擔。
 
-**原理上不綁 Claude**：這套分層適用於任何「把檔案載入上下文視窗」的 agent，
-只有路徑和 slash 指令格式是 Claude Code 專屬的。
+**Claude Code 和 Codex 都能跑**，而且共用同一套記憶樹——見
+[docs/codex.md](docs/codex.md)。這套分層適用於任何「把檔案載入上下文視窗」的
+agent，只有路由檔和指令目錄是平台專屬的。
+
+### ⚠️ Codex 的關鍵差異
+
+**Claude Code 會自動載入記憶索引，Codex 不會。** Codex 只自動吃 `AGENTS.md`，
+所以 L2 索引層必須靠指令去抓，這帶來兩個額外要求：
+
+1. **`AGENTS.md` §0 記憶啟動段**：宣告記憶根目錄，並命令 agent 在回答任何專案
+   問題前先讀 `MEMORY.md`
+2. **`memory/README.md`**：宣告該目錄是唯一真相源，讓歸屬權存在於 agent 上下文之外
+
+兩份都在 `template/` 裡。**別刪掉 §0**——少了它，agent 會只憑路由選單回答、
+安靜地跳過整個記憶層。這種失效看起來一切正常，直到它推翻你上週記錄過的決定。
+
+> repo 名稱維持原樣是為了網址穩定，它不是 Claude 專用的。
 
 ---
 
