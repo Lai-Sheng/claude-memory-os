@@ -111,33 +111,84 @@ git clone https://github.com/Lai-Sheng/claude-memory-os.git
 cd claude-memory-os
 ```
 
-**Claude Code**
+### Step 1 — copy the files
+
+Memory can live **anywhere you like** — you declare the path in the router file,
+so there is no magic directory to hunt for. These commands use `~/AgentMemory`.
+
+**macOS / Linux — Claude Code**
 
 ```bash
-cp template/CLAUDE.md      ~/.claude/CLAUDE.md
-cp template/commands/*.md  ~/.claude/commands/
-cp -r template/memory/*    ~/.claude/projects/<workspace>/memory/
+mkdir -p ~/AgentMemory ~/.claude/commands
+cp template/CLAUDE.md     ~/.claude/CLAUDE.md
+cp template/commands/*.md ~/.claude/commands/
+cp -r template/memory/.   ~/AgentMemory/
 ```
 
-**Codex**
+**macOS / Linux — Codex**
 
 ```bash
-cp template/AGENTS.md      ~/.codex/AGENTS.md
-cp template/commands/*.md  ~/.codex/commands/
-cp -r template/memory/*    ~/AgentMemory/
+mkdir -p ~/AgentMemory ~/.codex/commands
+cp template/AGENTS.md     ~/.codex/AGENTS.md
+cp template/commands/*.md ~/.codex/commands/
+cp -r template/memory/.   ~/AgentMemory/
 ```
 
-Then fill in the `{{PLACEHOLDERS}}`, create your first project from
-`template/memory/projects/_project_template/`, and run `/save-progress` at the
-end of your next session.
+**Windows PowerShell — Claude Code**
+
+```powershell
+New-Item -ItemType Directory -Force ~\AgentMemory, ~\.claude\commands | Out-Null
+Copy-Item template\CLAUDE.md ~\.claude\CLAUDE.md
+Copy-Item template\commands\*.md ~\.claude\commands\
+Copy-Item -Recurse -Force template\memory\* ~\AgentMemory\
+```
+
+**Windows PowerShell — Codex**
+
+```powershell
+New-Item -ItemType Directory -Force ~\AgentMemory, ~\.codex\commands | Out-Null
+Copy-Item template\AGENTS.md ~\.codex\AGENTS.md
+Copy-Item template\commands\*.md ~\.codex\commands\
+Copy-Item -Recurse -Force template\memory\* ~\AgentMemory\
+```
+
+⚠️ Already have a `CLAUDE.md` / `AGENTS.md`? **Merge**, do not overwrite.
+
+### Step 2 — point the router at your memory 🚨
+
+Open `~/.claude/CLAUDE.md` (or `~/.codex/AGENTS.md`) and replace
+`{{MEMORY_ROOT}}` in **§0** with the absolute path you used. Do the same in
+`~/AgentMemory/README.md`.
+
+**§0 is what makes the memory layer load. Do not delete it.** Without it the
+agent answers from the router menu and silently skips memory — which looks fine
+until it contradicts something you recorded last week.
+
+### Step 3 — fill in the rest, then check
+
+Fill in the persona, the router menu and `user_profile.md`, then verify nothing
+is left blank:
+
+```bash
+grep -rn "{{" ~/.claude/CLAUDE.md ~/AgentMemory/
+```
+
+```powershell
+Select-String -Pattern "{{" -Path ~\.claude\CLAUDE.md, ~\AgentMemory\* -Recurse
+```
+
+Every line it prints is a placeholder you still owe. When it prints nothing,
+create your first project from
+`template/memory/projects/_project_template/` and run `/save-progress` at the end
+of your next session.
 
 Full walkthrough: **[docs/getting-started.md](docs/getting-started.md)** ·
 Codex specifics: **[docs/codex.md](docs/codex.md)**
 
-⚠️ Already have a `CLAUDE.md` / `AGENTS.md`? **Merge**, do not overwrite.
-⚠️ On Codex, set `{{MEMORY_ROOT}}` in **both** `AGENTS.md` §0 and
-`memory/README.md` — Codex does not auto-load the index, so it has to be told
-where it lives. See [docs/codex.md](docs/codex.md).
+> **Prefer Claude Code's own memory directory?** You can point `{{MEMORY_ROOT}}`
+> at `~/.claude/projects/<workspace>/memory/` instead — find yours with
+> `ls -d ~/.claude/projects/*/`. It is not required, and a path you chose is
+> easier to back up and to move between machines.
 
 ---
 

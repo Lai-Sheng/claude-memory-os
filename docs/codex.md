@@ -20,23 +20,24 @@ platforms — the same `MEMORY.md`, the same `core.md` / `state.md` split, the s
 
 ## The one real difference
 
-> **Claude Code auto-loads its memory index. Codex does not.**
+> **Codex auto-loads `AGENTS.md` and nothing else.**
 
-Claude Code pulls `CLAUDE.md` *and* the memory index into every conversation.
-Codex auto-loads `AGENTS.md` and nothing else. So on Codex the index layer has to
-be **fetched by instruction**, which means two additions:
+The index layer has to be **fetched by instruction**, which is what these two do:
 
 1. **§0 Memory Bootstrap in `AGENTS.md`** — declares the memory root and orders
    the agent to read `MEMORY.md` before answering any project question.
 2. **`memory/README.md`** — declares that directory the single source of truth,
    so the ownership survives outside the agent's context.
 
-Both ship in `template/`. Do not delete §0: without it the agent will answer from
-the router menu alone and quietly skip the memory layer. That failure mode looks
-fine right up until it contradicts a decision you recorded last week.
+**Do not delete §0.** Without it the agent answers from the router menu alone and
+quietly skips the memory layer — a failure that looks fine right up until it
+contradicts a decision you recorded last week. It costs one tool call per
+session, which is far cheaper than the context the layering saves.
 
-It also costs a tool call per session. That is the price of the layering on
-Codex, and it is cheaper than the context it saves.
+> `CLAUDE.md` ships with the same §0. Claude Code may pull the index in on its
+> own depending on version and configuration, but relying on that is a bet — and
+> declaring the root explicitly is what lets you keep memory at a path you chose
+> instead of an auto-derived one. Same section, same reason, both platforms.
 
 ## Install
 
@@ -47,13 +48,19 @@ cd claude-memory-os
 
 ```bash
 mkdir -p ~/AgentMemory ~/.codex/commands
-cp template/AGENTS.md      ~/.codex/AGENTS.md
-cp template/commands/*.md  ~/.codex/commands/
-cp -r template/memory/*    ~/AgentMemory/
+cp template/AGENTS.md     ~/.codex/AGENTS.md
+cp template/commands/*.md ~/.codex/commands/
+cp -r template/memory/.   ~/AgentMemory/
 ```
 
-On Windows the paths are `C:\Users\<you>\.codex\` and
-`C:\Users\<you>\AgentMemory\`.
+Windows PowerShell:
+
+```powershell
+New-Item -ItemType Directory -Force ~\AgentMemory, ~\.codex\commands | Out-Null
+Copy-Item template\AGENTS.md ~\.codex\AGENTS.md
+Copy-Item template\commands\*.md ~\.codex\commands\
+Copy-Item -Recurse -Force template\memory\* ~\AgentMemory\
+```
 
 Then:
 

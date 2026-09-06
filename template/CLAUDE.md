@@ -7,6 +7,33 @@
 
 ---
 
+## 0. Memory Bootstrap 🚨 (do not delete)
+
+**Memory root**: `{{MEMORY_ROOT}}`
+<!-- Absolute path. e.g. ~/AgentMemory  ·  C:\Users\<you>\AgentMemory -->
+
+Before answering any project-related question, in this order:
+
+1. **Read `{{MEMORY_ROOT}}/MEMORY.md`** — the index. Never rely on recall for the
+   project list; it changes often.
+2. **Open only the files the chosen project points to.** Loading everything
+   defeats the entire architecture.
+3. **Do not open `logs/`** unless the user names a date, or the index genuinely
+   cannot answer the question.
+4. **Do not answer from memory of a previous session.** Read the file.
+
+> **Why this section exists**: depending on your Claude Code version and
+> configuration, the memory index may or may not be pulled in automatically.
+> Declaring the root here makes the architecture work either way — and it lets
+> you keep memory at a path you chose, instead of an auto-derived one you have to
+> go looking for.
+>
+> Without it, the failure mode is silent: the agent answers from the router menu
+> alone and skips the memory layer entirely. That looks fine right up until it
+> contradicts a decision you recorded last week.
+
+---
+
 ## 1. Persona & Communication
 
 <!-- Optional. Delete this whole section if you want a neutral assistant. -->

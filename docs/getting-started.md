@@ -8,35 +8,53 @@
 
 ## 0. Where things go
 
-Claude Code reads user-level config from `~/.claude/`:
+Two locations. The router lives where Claude Code reads config; the memory tree
+lives **wherever you choose**, because you declare its path in the router.
 
 ```
 ~/.claude/
-├── CLAUDE.md              ← L1 router (always loaded)
-├── commands/              ← your slash commands
-│   ├── save-progress.md
-│   └── commands.md
-└── projects/<workspace>/memory/
-    ├── MEMORY.md          ← L2 index (always loaded)
-    ├── user_profile.md
-    ├── feedback_*.md
-    ├── projects/          ← L3 per-project core/state
-    └── logs/              ← L4 chronological
+├── CLAUDE.md              ← L1 router
+└── commands/              ← your slash commands
+    ├── save-progress.md
+    └── commands.md
+
+~/AgentMemory/             ← memory root — any path you like
+├── README.md              ← ownership declaration
+├── MEMORY.md              ← L2 index
+├── user_profile.md
+├── feedback_*.md
+├── projects/              ← L3 per-project core/state
+└── logs/                  ← L4 chronological
 ```
 
-> On Windows the path is `C:\Users\<you>\.claude\`.
-> Confirm your exact memory directory — Claude Code will tell you where it is if
-> you ask it *"where is your memory directory?"*.
+> On Windows: `C:\Users\<you>\.claude\` and `C:\Users\<you>\AgentMemory\`.
+>
+> You *can* point the memory root at Claude Code's own project directory
+> (`~/.claude/projects/<workspace>/memory/`; find yours with
+> `ls -d ~/.claude/projects/*/`). It is not required, and a path you chose is
+> easier to back up and to move between machines.
 
 ## 1. Copy the templates
 
 ```bash
 git clone https://github.com/Lai-Sheng/claude-memory-os.git
 cd claude-memory-os
+```
 
-cp template/CLAUDE.md            ~/.claude/CLAUDE.md
-cp template/commands/*.md        ~/.claude/commands/
-cp -r template/memory/*          ~/.claude/projects/<workspace>/memory/
+```bash
+mkdir -p ~/AgentMemory ~/.claude/commands
+cp template/CLAUDE.md     ~/.claude/CLAUDE.md
+cp template/commands/*.md ~/.claude/commands/
+cp -r template/memory/.   ~/AgentMemory/
+```
+
+Windows PowerShell:
+
+```powershell
+New-Item -ItemType Directory -Force ~\AgentMemory, ~\.claude\commands | Out-Null
+Copy-Item template\CLAUDE.md ~\.claude\CLAUDE.md
+Copy-Item template\commands\*.md ~\.claude\commands\
+Copy-Item -Recurse -Force template\memory\* ~\AgentMemory\
 ```
 
 ⚠️ If you already have a `CLAUDE.md`, **merge** rather than overwrite — the
@@ -46,12 +64,23 @@ template will not know your existing rules.
 
 Every `{{PLACEHOLDER}}` needs a real value or a deletion. Start with:
 
-1. **`CLAUDE.md` §1 Persona** — or delete the section entirely for a neutral
+1. 🚨 **`CLAUDE.md` §0 Memory Bootstrap** — the absolute path to your memory root.
+   **Do this first, and do not delete the section.** It is what makes the memory
+   layer load. Set the same path in `~/AgentMemory/README.md`
+2. **`CLAUDE.md` §1 Persona** — or delete the section entirely for a neutral
    assistant
-2. **`CLAUDE.md` §2 Router** — list the projects you actually have right now.
+3. **`CLAUDE.md` §2 Router** — list the projects you actually have right now.
    Two is a fine start
-3. **`memory/user_profile.md`** — role, stack, working context. Keep it stable;
+4. **`memory/user_profile.md`** — role, stack, working context. Keep it stable;
    anything that changes monthly belongs in a project `state.md`
+
+Then check nothing is left blank:
+
+```bash
+grep -rn "{{" ~/.claude/CLAUDE.md ~/AgentMemory/
+```
+
+Every line it prints is a placeholder you still owe.
 
 Leave §4 (hard rules) mostly empty at first. Rules should come from real
 incidents, not from imagination.
@@ -59,8 +88,12 @@ incidents, not from imagination.
 ## 3. Create your first project
 
 ```bash
-cd ~/.claude/projects/<workspace>/memory/projects
+cd ~/AgentMemory/projects
 cp -r _project_template t1_my_project
+```
+
+```powershell
+Copy-Item -Recurse ~\AgentMemory\projects\_project_template ~\AgentMemory\projects\t1_my_project
 ```
 
 Fill in `core.md` — especially **"Why this project exists"** and **"Definition of

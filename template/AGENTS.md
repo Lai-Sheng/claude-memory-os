@@ -10,10 +10,10 @@
 
 ---
 
-## 0. Memory Bootstrap 🚨 (Codex-specific — do not delete)
+## 0. Memory Bootstrap 🚨 (do not delete)
 
 **Memory root**: `{{MEMORY_ROOT}}`
-<!-- e.g. ~/AgentMemory  ·  C:\Users\<you>\AgentMemory -->
+<!-- Absolute path. e.g. ~/AgentMemory  ·  C:\Users\<you>\AgentMemory -->
 
 Before answering any project-related question, in this order:
 

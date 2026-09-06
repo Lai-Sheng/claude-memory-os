@@ -102,31 +102,79 @@ git clone https://github.com/Lai-Sheng/claude-memory-os.git
 cd claude-memory-os
 ```
 
-**Claude Code**
+### 第 1 步——複製檔案
+
+記憶**放哪都可以**——路徑是在路由檔裡宣告的，沒有什麼神祕目錄要你去找。
+以下指令用 `~/AgentMemory`。
+
+**macOS / Linux — Claude Code**
 
 ```bash
-cp template/CLAUDE.md      ~/.claude/CLAUDE.md
-cp template/commands/*.md  ~/.claude/commands/
-cp -r template/memory/*    ~/.claude/projects/<workspace>/memory/
+mkdir -p ~/AgentMemory ~/.claude/commands
+cp template/CLAUDE.md     ~/.claude/CLAUDE.md
+cp template/commands/*.md ~/.claude/commands/
+cp -r template/memory/.   ~/AgentMemory/
 ```
 
-**Codex**
+**macOS / Linux — Codex**
 
 ```bash
-cp template/AGENTS.md      ~/.codex/AGENTS.md
-cp template/commands/*.md  ~/.codex/commands/
-cp -r template/memory/*    ~/AgentMemory/
+mkdir -p ~/AgentMemory ~/.codex/commands
+cp template/AGENTS.md     ~/.codex/AGENTS.md
+cp template/commands/*.md ~/.codex/commands/
+cp -r template/memory/.   ~/AgentMemory/
 ```
 
-然後把 `{{PLACEHOLDER}}` 填掉、從 `template/memory/projects/_project_template/`
-複製出你的第一個專案，下次工作結束前跑一次 `/save-progress`。
+**Windows PowerShell — Claude Code**
+
+```powershell
+New-Item -ItemType Directory -Force ~\AgentMemory, ~\.claude\commands | Out-Null
+Copy-Item template\CLAUDE.md ~\.claude\CLAUDE.md
+Copy-Item template\commands\*.md ~\.claude\commands\
+Copy-Item -Recurse -Force template\memory\* ~\AgentMemory\
+```
+
+**Windows PowerShell — Codex**
+
+```powershell
+New-Item -ItemType Directory -Force ~\AgentMemory, ~\.codex\commands | Out-Null
+Copy-Item template\AGENTS.md ~\.codex\AGENTS.md
+Copy-Item template\commands\*.md ~\.codex\commands\
+Copy-Item -Recurse -Force template\memory\* ~\AgentMemory\
+```
+
+⚠️ 已經有 `CLAUDE.md`／`AGENTS.md` 了？請**合併**，不要直接覆蓋。
+
+### 第 2 步——告訴路由層記憶在哪 🚨
+
+打開 `~/.claude/CLAUDE.md`（或 `~/.codex/AGENTS.md`），把 **§0** 裡的
+`{{MEMORY_ROOT}}` 換成你剛才用的絕對路徑。`~/AgentMemory/README.md` 也要改。
+
+**§0 是記憶層會不會被載入的關鍵，不要刪掉它。** 少了它，agent 會只憑路由選單
+回答、安靜地跳過記憶——看起來一切正常，直到它推翻你上週記錄過的決定。
+
+### 第 3 步——填完其餘欄位，然後自檢
+
+填好人設、路由選單、`user_profile.md`，然後確認沒有漏填的：
+
+```bash
+grep -rn "{{" ~/.claude/CLAUDE.md ~/AgentMemory/
+```
+
+```powershell
+Select-String -Pattern "{{" -Path ~\.claude\CLAUDE.md, ~\AgentMemory\* -Recurse
+```
+
+**印出來的每一行都是你還沒填的佔位符。** 印不出東西以後，從
+`template/memory/projects/_project_template/` 複製出第一個專案，下次工作結束前
+跑一次 `/save-progress`。
 
 完整步驟：**[docs/getting-started.md](docs/getting-started.md)**、
 Codex 專屬：**[docs/codex.md](docs/codex.md)**
 
-⚠️ 已經有 `CLAUDE.md`／`AGENTS.md` 了？請**合併**，不要直接覆蓋。
-⚠️ Codex 端要在 `AGENTS.md` §0 **和** `memory/README.md` **兩處**都填
-`{{MEMORY_ROOT}}`——Codex 不會自動載入索引，必須明文告訴它記憶放在哪。
+> **想用 Claude Code 原生的記憶目錄？** 也可以把 `{{MEMORY_ROOT}}` 指向
+> `~/.claude/projects/<workspace>/memory/`，用 `ls -d ~/.claude/projects/*/`
+> 找出你的那個。這不是必要的——自己選的路徑比較好備份，也比較好搬到另一台機器。
 
 ---
 
