@@ -104,6 +104,34 @@ See [docs/srp-zoning.md](docs/srp-zoning.md).
 
 ---
 
+## Before you install: the habit this depends on
+
+Every budget here is enforced by **one command**, run at the end of any session
+that changed something:
+
+```
+/save-progress
+```
+
+Skip it and `state.md` is never overwritten, the index is never rolled, nothing
+ever moves to `archived/` — and in about six weeks you arrive at exactly the
+bloated single file this repo exists to prevent, only with better documentation
+explaining what you should have been doing.
+
+The structure is not the system. The structure plus that habit is the system. If
+you know you will not run it, a plain `CLAUDE.md` is the honest choice and this
+would only be overhead.
+
+## See it filled in first
+
+`template/` ships with 90 placeholders, which makes it hard to picture. The
+**[examples/](examples/)** directory is the same architecture fully filled in for
+a fictional developer three months in — a router with four projects, a
+`core.md` with no dates in it, a `state.md` with a real resume point, an archived
+decision record, and a feedback file that cites the incident behind its rule.
+
+Read that first. Copy from `template/`.
+
 ## Install
 
 ```bash
@@ -200,15 +228,17 @@ Codex specifics: **[docs/codex.md](docs/codex.md)**
 | [architecture.md](docs/architecture.md) | The four layers and why each boundary exists |
 | [srp-zoning.md](docs/srp-zoning.md) | Splitting a project that outgrew core/state |
 | [codex.md](docs/codex.md) | Codex install, the memory-bootstrap difference, running both agents |
+| [examples/](examples/) | The whole thing filled in for a fictional user — read this first |
 
 ---
 
 ## Repo layout
 
 ```
+examples/                              the same architecture, filled in
 template/
 ├── CLAUDE.md                          L1 router — Claude Code
-├── AGENTS.md                          L1 router — Codex (adds §0 memory bootstrap)
+├── AGENTS.md                          L1 router — Codex
 ├── commands/                          shared by both
 │   ├── save-progress.md               the enforcement loop
 │   └── commands.md

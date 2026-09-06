@@ -119,6 +119,17 @@ work, and before you close the terminal:
 It measures your files, warns you if anything is over budget, overwrites
 `state.md`, writes today's log, and tells you where to resume.
 
+🚨 **This is not an optional convenience. It is the whole enforcement loop.**
+
+Every budget in this architecture is enforced by that command and by nothing
+else. Skip it and `state.md` never gets overwritten, the index never gets rolled,
+nothing ever moves to `archived/` — and in about six weeks you arrive at exactly
+the bloated single file this repo exists to prevent, with better documentation.
+
+Run it at the end of every session that changed anything. If you will not build
+that habit, this architecture will not help you, and a plain `CLAUDE.md` is the
+honest choice.
+
 ## 5. Let rules accumulate
 
 When you correct *how* the assistant works — not what it built — write a feedback
@@ -142,6 +153,26 @@ Index it in `MEMORY.md`. Six of these is a system that fits you; sixty is bloat 
 merge and prune when they overlap.
 
 ---
+
+## Verify it actually works
+
+Copying files proves nothing. The failure mode you are checking for is **silent**:
+the files are all present and the agent never reads them.
+
+Start a fresh session and ask about a project you have **not** mentioned in that
+session — something only `state.md` knows, like *"where did I leave T1?"*
+
+Then check the transcript:
+
+| Check | Pass | Fail means |
+|---|---|---|
+| Did it **read a file**? | A visible read of `MEMORY.md` | §0 is not landing. Confirm you edited the installed router (`~/.claude/CLAUDE.md`), not the repo copy, and that `{{MEMORY_ROOT}}` is an absolute path that exists |
+| Did it read **only** what it needed? | `MEMORY.md`, then that project's files | It is loading the whole tree — §0's "open only" clause was weakened or deleted |
+| Did it open `logs/`? | It should **not** have | Reword §0 step 3; logs are for named dates only |
+| Did the session **open with the project menu**? | Yes, before anything else | §2 Router is still placeholders, or your greeting was answered directly — check §2 lists real projects |
+| Does it answer from `state.md`, or improvise? | Quotes your actual resume point | The file is there but not being read — same as row 1 |
+
+If row 1 fails, nothing else matters. Fix that first.
 
 ## Sanity checks
 
