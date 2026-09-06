@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="900" height="560" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <text x="40" y="52" font-size="21" font-weight="700" fill="#0f172a">Four layers, each with a budget and a loading trigger</text>
+  <text x="40" y="78" font-size="14" fill="#64748b">Break the budget, get split. Loaded more often than the trigger justifies, get demoted.</text>
+
+  <text x="632" y="112" font-size="11" font-weight="700" fill="#94a3b8" letter-spacing="0.08em">BUDGET</text>
+  <text x="762" y="112" font-size="11" font-weight="700" fill="#94a3b8" letter-spacing="0.08em">LOADED</text>
+
+  <!-- L1 -->
+  <rect x="40" y="124" width="820" height="86" rx="9" fill="#eef2ff"/>
+  <rect x="40" y="124" width="6" height="86" rx="3" fill="#6366f1"/>
+  <text x="66" y="152" font-size="13" font-weight="700" fill="#6366f1">L1</text>
+  <text x="100" y="152" font-size="16" font-weight="700" fill="#0f172a">CLAUDE.md · AGENTS.md</text>
+  <text x="100" y="175" font-size="13.5" fill="#475569">persona · router menu · mode gates · hard rules</text>
+  <text x="100" y="195" font-size="12.5" fill="#818cf8">the router, not a manual — answers three questions only</text>
+  <text x="632" y="163" font-size="14" font-weight="600" fill="#334155">~6 KB</text>
+  <text x="762" y="163" font-size="13" font-weight="700" fill="#6366f1">ALWAYS</text>
+
+  <!-- L2 -->
+  <rect x="40" y="222" width="820" height="86" rx="9" fill="#ecfeff"/>
+  <rect x="40" y="222" width="6" height="86" rx="3" fill="#0891b2"/>
+  <text x="66" y="250" font-size="13" font-weight="700" fill="#0891b2">L2</text>
+  <text x="100" y="250" font-size="16" font-weight="700" fill="#0f172a">MEMORY.md</text>
+  <text x="100" y="273" font-size="13.5" fill="#475569">one line per memory file · recent log · project index</text>
+  <text x="100" y="293" font-size="12.5" fill="#22a6c3">an index, never a container — links core.md, never state.md</text>
+  <text x="632" y="261" font-size="14" font-weight="600" fill="#334155">16 KB max</text>
+  <text x="762" y="261" font-size="13" font-weight="700" fill="#0891b2">ALWAYS</text>
+
+  <!-- L3 -->
+  <rect x="40" y="320" width="820" height="112" rx="9" fill="#ecfdf5"/>
+  <rect x="40" y="320" width="6" height="112" rx="3" fill="#059669"/>
+  <text x="66" y="348" font-size="13" font-weight="700" fill="#059669">L3</text>
+  <text x="100" y="348" font-size="16" font-weight="700" fill="#0f172a">projects/{p}/core.md</text>
+  <text x="100" y="369" font-size="13" fill="#475569">why it exists · inviolable rules · design constitution</text>
+  <text x="632" y="352" font-size="13.5" font-weight="600" fill="#334155">no dates in it</text>
+  <text x="762" y="352" font-size="12.5" font-weight="700" fill="#059669">ON PICK</text>
+  <line x1="100" y1="382" x2="820" y2="382" stroke="#a7f3d0" stroke-width="1"/>
+  <text x="100" y="404" font-size="16" font-weight="700" fill="#0f172a">projects/{p}/state.md</text>
+  <text x="100" y="423" font-size="13" fill="#475569">active work · blockers · resume point</text>
+  <text x="632" y="408" font-size="13.5" font-weight="600" fill="#334155">OVERWRITTEN</text>
+  <text x="762" y="408" font-size="12.5" font-weight="700" fill="#059669">ON DEMAND</text>
+
+  <!-- L4 -->
+  <rect x="40" y="444" width="820" height="70" rx="9" fill="#f1f5f9"/>
+  <rect x="40" y="444" width="6" height="70" rx="3" fill="#64748b"/>
+  <text x="66" y="472" font-size="13" font-weight="700" fill="#64748b">L4</text>
+  <text x="100" y="472" font-size="16" font-weight="700" fill="#0f172a">logs/YYYY-MM-DD.md · archived/</text>
+  <text x="100" y="494" font-size="13" fill="#475569">chronological record · cold state — logs answer "when", state.md answers "now"</text>
+  <text x="632" y="480" font-size="14" font-weight="600" fill="#334155">unbounded</text>
+  <text x="762" y="480" font-size="12.5" font-weight="700" fill="#64748b">WHEN NAMED</text>
+
+  <text x="40" y="540" font-size="13" fill="#64748b">Enforced by <tspan font-weight="700" fill="#0f172a">/save-progress</tspan> — measures before writing, proposes a split on overflow, overwrites state, rolls the index.</text>
+</svg>

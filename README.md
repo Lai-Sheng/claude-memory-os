@@ -23,23 +23,7 @@ running daily for six months across a dozen concurrent projects.
 
 Everything else follows from that.
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│ L1  CLAUDE.md            ~6 KB    ALWAYS loaded              │
-│     persona · router menu · mode gates · hard rules          │
-├──────────────────────────────────────────────────────────────┤
-│ L2  MEMORY.md            <16 KB   ALWAYS loaded              │
-│     one line per memory file · recent log · project index    │
-├──────────────────────────────────────────────────────────────┤
-│ L3  projects/{p}/core.md          WHEN PROJECT PICKED        │
-│     why it exists · inviolable rules · design constitution   │
-│     projects/{p}/state.md         ON DEMAND (overwritten)    │
-│     in-flight work · blockers · resume point                 │
-├──────────────────────────────────────────────────────────────┤
-│ L4  logs/YYYY-MM-DD.md            ONLY WHEN NAMED            │
-│     projects/{p}/archived/*.md    chronological + cold state │
-└──────────────────────────────────────────────────────────────┘
-```
+![The four layers, each with a byte budget and a loading trigger](docs/assets/layers.svg)
 
 Each layer has a **byte budget** and a **loading trigger**. Break the budget, get
 split. Get loaded more often than your trigger justifies, get demoted.
@@ -288,6 +272,38 @@ platform-specific.
 > The repo keeps its original name for URL stability. It is not Claude-only.
 
 ---
+
+## Status & testing
+
+Being explicit about what has actually been verified, because "it worked on my
+machine" is how the first version of these install instructions shipped broken.
+
+**Verified — 2026-09-06**
+
+- Install commands run end to end from a fresh clone against an isolated `HOME`:
+  **Windows 11 · Git Bash** and **Windows PowerShell 5.1**. Both platforms, both
+  routers, 12 files, exit 0.
+- The placeholder self-check reports correctly.
+- No internal link in `examples/` is broken; no placeholders remain in it.
+
+**Not verified**
+
+- **macOS and Linux natively.** The shell commands are plain POSIX (`mkdir -p`,
+  `cp -r`) and should work, but nobody has run them there. If you do, an issue
+  either way is welcome.
+- **Agent behaviour.** Whether a given Claude Code or Codex build honours §0 has
+  not been tested across versions — which is exactly why
+  [the verification steps](docs/getting-started.md#verify-it-actually-works)
+  exist. Run them after installing; do not assume.
+- Codex slash-command and `AGENTS.md` precedence details vary by version. Check
+  your own build's docs before relying on them.
+
+**Provenance**
+
+The architecture is not theoretical — it was extracted from a setup that has run
+daily since March 2026 across roughly a dozen concurrent projects, and the rules
+in it are the ones that survived contact with that. The *packaging* is new, so
+the packaging is where bugs will be. Please report them.
 
 ## License
 
