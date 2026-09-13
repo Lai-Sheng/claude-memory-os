@@ -283,6 +283,7 @@ template/
     ├── feedback_memory_no_bloat.md    the governance rule
     ├── projects/_project_template/    core.md · state.md · archived/
     └── logs/                          day files + archive.md
+extras/                                unrelated bonus commands, kept apart on purpose
 docs/
 CHANGELOG.md
 ```
@@ -318,6 +319,14 @@ each session — plain `CLAUDE.md` is fine, and this would be overhead.
 
 **Also probably not** if you would rather the agent decide what to remember. That
 is what native memory is for, and it does it well.
+
+---
+
+## Extras
+
+`extras/` holds standalone Claude Code commands that have nothing to do with
+the memory architecture above — kept separate on purpose, so the one idea this
+repo is about doesn't get diluted. **[extras/README.md →](extras/README.md)**
 
 ---
 
