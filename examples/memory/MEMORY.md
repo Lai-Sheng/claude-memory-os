@@ -1,17 +1,19 @@
 # Memory Index
 
-<!-- FILLED-IN EXAMPLE. Currently 2.4 KB — well under the 16 KB ceiling. -->
+<!-- FILLED-IN EXAMPLE. Well under the 16 KB budget. -->
 
 > ⚠️ Loaded every conversation. An *index*, never a container. One line per file.
-> 🚦 Ceiling 16 000 bytes. `/save-progress` measures it every run.
+> 🔑 A line = trigger words + open hooks, not a summary.
+> 🚦 Budget 16 000 bytes. `/save-progress` prints the size every run.
+> 📐 The router builds its menu from **Projects** below — this is the only copy.
 
 ---
 
 ## Conventions & Behavior
 
 - [user_profile.md](user_profile.md) — Sam: backend dev, Go/Postgres, Linux, solo
-- [feedback_memory_no_bloat.md](feedback_memory_no_bloat.md) — 🌟 global memory
-  governance: core/state split, no append-growth, auto-split on trigger
+- [feedback_memory_no_bloat.md](feedback_memory_no_bloat.md) — 🌟 governance:
+  core/state split · no append-growth · say it once · trigger-word index
 - [feedback_no_unprompted_build.md](feedback_no_unprompted_build.md) — 🚨 in
   discussion, answer only; do not write files unless asked to build
 
@@ -36,29 +38,25 @@
 
 ## Projects
 
-> Numbering: category letter + serial, never reused.
-> Only `core.md` is linked. `state.md` is on demand; `archived/*` when named.
+> The router's menu comes from here. Numbering: category letter + serial, never
+> reused. Only `core.md` is linked. `state.md` is on demand; `archived/*` when named.
 
 ### 🛠️ Tools (T)
 
-- [T1 Receipt Scanner](projects/t1_receipt_scanner/core.md) — 🛠️ **2025-10-14**:
-  OCR receipts → CSV for the accountant · Go + Tesseract · CLI only, never a
-  web UI · real files in `~/code/receipt-scanner`
+- [T1 Receipt Scanner](projects/t1_receipt_scanner/core.md) — 🛠️ OCR receipts →
+  CSV · Go + Tesseract · CLI only, never a web UI
 
 ### 🏠 Goals (A)
 
-- [A1 Home Server Migration](projects/a1_home_server/core.md) — 🏠 **2025-11-02**:
-  move everything off the old Synology before its warranty ends 2026-06 ·
-  🚧 blocked on RAID rebuild · 🔀 **zoned** — pick a zone before loading:
-  🧱 Hardware · 📦 Services · 🔐 Networking · 💎 Facts
+- [A1 Home Server Migration](projects/a1_home_server/core.md) — 🏠 off the old
+  Synology · ⏳ warranty ends 2026-06 · 🚧 blocked on RAID rebuild · 🔀 zoned
 
 ### 📚 Learning (K)
 
-- [K1 Learning Rust](projects/k1_rust/core.md) — 📚 **2025-12-01**: read *The
-  Book* chapter by chapter, port one T1 subcommand as the exercise · not a
-  rewrite, an exercise
+- [K1 Learning Rust](projects/k1_rust/core.md) — 📚 *The Book* chapter by chapter ·
+  exercise = port one T1 subcommand, not a rewrite
 
-### ❄️ Frozen (never auto-load)
+### ❄️ Frozen (never auto-load, never in the menu)
 
 - ❄️ **Z1 Blog Engine** closed 2025-10-02 — replaced by a static generator; files
-  kept at `projects/z1_blog_engine/`. Thaw only if I name it.
+  at `projects/z1_blog_engine/`

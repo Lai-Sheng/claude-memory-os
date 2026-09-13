@@ -1,6 +1,6 @@
 # A filled-in example
 
-`template/` ships with 90 placeholders. That is honest, but it makes it hard to
+`template/` ships with 77 placeholders. That is honest, but it makes it hard to
 picture what a working setup actually looks like.
 
 This directory is the same architecture, **fully filled in** for a fictional
@@ -12,9 +12,9 @@ Read it to see the shape. Copy from `template/`, not from here.
 
 ```
 examples/
-├── CLAUDE.md                      the router, filled in — four projects
+├── CLAUDE.md                      the router, filled in — and no project list in it
 └── memory/
-    ├── MEMORY.md                  the index at 2.4 KB, well under budget
+    ├── MEMORY.md                  the index: the menu's only source, trigger-word lines
     ├── user_profile.md
     ├── feedback_no_unprompted_build.md   a rule with its incident attached
     ├── feedback_memory_no_bloat.md       the governance rule, as shipped
@@ -36,8 +36,15 @@ examples/
 
 ## Things worth noticing
 
-**The router lists projects, not capabilities.** The user picks a project first.
-That is what keeps the other three out of the context window.
+**The router does not name a single project.** It tells the assistant to build
+the opening menu from `MEMORY.md`. The user still picks a project first — that is
+what keeps the other three out of the context window — but the list exists in one
+place, so adding a project never means editing two files.
+
+**Index lines are triggers, not summaries.** A1's line is `off the old Synology ·
+⏳ warranty ends 2026-06 · 🚧 blocked on RAID rebuild · 🔀 zoned`. No explanation —
+that is in `core.md`. The deadline and the blocker stay, because they are what
+make the assistant bring A1 up when a conversation touches it without naming it.
 
 **`core.md` has no dates in it.** Not one "completed on". Every dated line lives
 in `state.md`, `archived/`, or `logs/`. That is the whole reason `core.md` stays

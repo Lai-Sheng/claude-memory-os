@@ -1,6 +1,6 @@
 ---
 name: feedback-memory-no-bloat
-description: 🌟 Global memory governance — every project splits into core/state; main files must never grow by appending; auto-split on trigger; stale sections move to archived/
+description: 🌟 Global memory governance — core/state split, no append-growth, auto-split on trigger; always-loaded layer says each fact once, index lines are trigger words
 metadata:
   type: feedback
   tier: core
@@ -103,6 +103,45 @@ UI build notes, instance IDs, a bug list, and design patterns.
 **Payoff**: the index links `core.md` (always loaded), `state.md` is read on
 demand, `archived/` only when named. ~20 K tokens of context saved per
 conversation about that project.
+
+---
+
+## 📐 The always-loaded layer (`CLAUDE.md` + `MEMORY.md`)
+
+Project files are loaded when picked. These two are loaded **every session,
+together**, so they get their own rules.
+
+### Say it once
+
+- **`CLAUDE.md`** holds what is true everywhere and rarely changes: persona,
+  opening behaviour, mode gates, non-negotiable rules.
+- **`MEMORY.md`** holds what changes: the project list, freeze state, the log
+  index.
+- **The same fact never lives in both.** The router's menu *reads* the project
+  list from the index; it does not contain one.
+
+**Why:** in the setup this came from, both files carried the project list, the
+frozen list, and a zone table. Enforcing this rule cut the always-loaded layer
+from 22,468 to 14,870 bytes (−34%) with nothing lost.
+
+**How to apply:** before removing anything from `CLAUDE.md`, search for it in the
+file that should own it. Present → delete. Absent → move it there first.
+
+### Index lines are trigger words
+
+- Keep **keywords** and **open hooks** (*blocked on X*, *decision pending*,
+  *results not in yet*). Drop explanation. ~120–180 bytes.
+- Never cut the hooks. They are what let the assistant notice an unfinished
+  thread when a conversation brushes against a project without naming it.
+
+**Why:** project lines averaged 278 bytes, and every detail in them already
+existed in the linked file — the index had become a second, shorter copy.
+
+### Print the number; don't wait for the alarm
+
+`/save-progress` prints the index size on every run. **Why:** the old conditional
+check ("if over 16 KB, slim down") let the index reach 16,003 bytes without anyone
+noticing.
 
 ---
 

@@ -2,6 +2,9 @@
 
 <!-- FILLED-IN EXAMPLE. Fictional user. Copy from template/, not from here. -->
 
+> Global and stable. Projects, frozen state and the log index live in
+> `MEMORY.md` — never repeated here.
+
 ## 0. Memory Bootstrap 🚨 (do not delete)
 
 **Memory root**: `~/AgentMemory`
@@ -29,18 +32,16 @@ Before answering any project-related question, in this order:
 ## 2. Opening Behavior (the Router)
 
 **At the start of every new conversation**, regardless of how I greet you,
-immediately ask **"Which project are we working on today?"** and list these:
+immediately ask **"Which project are we working on today?"** and list my active
+projects **from the Projects section of `~/AgentMemory/MEMORY.md`**, grouped by
+category. Skip anything marked ❄️ frozen; thaw only if I ask.
 
-- 🛠️ **Tools (T)**: T1 Receipt Scanner — OCR receipts → CSV, CLI
-- 🏠 **Goals (A)**: A1 Home Server Migration — 🚧 blocked on the NAS RAID rebuild
-  - 🔀 **Zoned.** List the zones and let me pick one, then load only that zone:
-    🧱 Hardware · 📦 Services · 🔐 Networking · 💎 Facts
-- 📚 **Learning (K)**: K1 Learning Rust — chapter-by-chapter, ownership model
-- ❄️ **Frozen**: Z1 Blog Engine (closed 2025-10-02) — do not load; thaw if I ask
+<!-- Notice: no project names in this file. The list lives in MEMORY.md only. -->
 
-🚨 Never ask a vague "what would you like to do?" for A1. Sorting a request into
-the right zone is your job, not mine — note `📌 filed under Services` in one line
-and carry on.
+For a project marked 🔀 **zoned**, open its `core.md`, list the zones and let me
+pick one, then load only that zone. 🚨 Never ask a vague "what would you like to
+do?" for a zoned project. Sorting a request into the right zone is your job, not
+mine — note `📌 filed under <zone>` in one line and carry on.
 
 ---
 

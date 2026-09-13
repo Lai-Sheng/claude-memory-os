@@ -4,9 +4,15 @@
 > container. One line per memory file. If a line needs a second line, the content
 > belongs in the file it points to.
 >
-> 🚦 **Hard ceiling: 16 000 bytes (~5 K tokens).** `/save-progress` measures this
-> every run and triggers a slim-down when it is exceeded. See
-> `feedback_memory_no_bloat.md`.
+> 🔑 **A line is a trigger, not a summary**: keywords + any open hook (*blocked on
+> X*, *decision pending*). No explanation. ~120–180 bytes.
+>
+> 🚦 **Budget: 16 000 bytes (~5 K tokens).** `/save-progress` prints this file's
+> size on every run. See `feedback_memory_no_bloat.md`.
+>
+> 📐 This file owns what *changes*: the project list (the router's menu is built
+> from it), freeze state, the log index. Global, stable rules live in `CLAUDE.md`.
+> **Never write the same fact in both.**
 
 ---
 
@@ -15,9 +21,8 @@
 <!-- type: user / feedback — how to work with this person. Always loaded. -->
 
 - [user_profile.md](user_profile.md) — who the user is: role, stack, working context
-- [feedback_memory_no_bloat.md](feedback_memory_no_bloat.md) — 🌟 **global memory
-  governance**: every project splits into core/state; main files must not grow by
-  appending; auto-split on trigger
+- [feedback_memory_no_bloat.md](feedback_memory_no_bloat.md) — 🌟 memory governance:
+  core/state split · no append-growth · trigger-word index · say it once
 
 <!-- Add one line per behavioral rule you have learned. Examples:
 - [feedback_no_clarifying_questions.md](feedback_no_clarifying_questions.md) — decide at forks instead of asking
@@ -43,32 +48,34 @@
 
 ## Projects
 
+> **The router's opening menu is built from this section — it is the only copy.**
 > Numbering: category letter + serial. Retired numbers are never reused.
 > Only `core.md` is linked here — `state.md` is read on demand and
 > `archived/*` only when explicitly named.
 
 ### 🛠️ Tools (T)
 
-- [T1 {{Project Name}}](projects/t1_{{slug}}/core.md) — 🛠️ **{{date}}**: one-line
-  purpose · key constraint · where the real files live
+- [T1 {{Project Name}}](projects/t1_{{slug}}/core.md) — 🛠️ {{purpose keywords}} ·
+  {{key constraint}} · 🚧 {{open hook, if any}}
 
 ### 🎓 Applications / Goals (A)
 
-- [A1 {{Project Name}}](projects/a1_{{slug}}/core.md) — 🎓 **{{date}}**: purpose ·
-  🚨 zone router: pick a zone before loading anything
+- [A1 {{Project Name}}](projects/a1_{{slug}}/core.md) — 🎓 {{purpose keywords}} ·
+  🔀 zoned — pick a zone before loading anything
 
 ### 📚 Learning (K)
 
-- [K1 {{Project Name}}](projects/k1_{{slug}}/core.md) — 📚 **{{date}}**: purpose
+- [K1 {{Project Name}}](projects/k1_{{slug}}/core.md) — 📚 {{purpose keywords}} ·
+  {{where you are}}
 
-### ❄️ Frozen (never auto-load)
+### ❄️ Frozen (never auto-load, never in the menu)
 
 > Files are kept intact. Thaw only when the user names one.
 
 - ❄️ **{{Project}}** closed {{date}} — files at `projects/{{slug}}/`
 
-### 📦 Handed off
+### 📦 Handed off (not in the menu)
 
-- 📦 **{{Project}}** → handed to {{agent/person}} on {{date}}; see
-  `{{handoff-doc-path}}`. If the user mentions it, point there instead of
+- 📦 **{{Project}}** → handed to {{person/tool}} on {{date}}; see
+  `{{handoff-note-path}}`. If the user mentions it, point there instead of
   working on it here.

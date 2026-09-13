@@ -11,9 +11,9 @@
   <rect x="40" y="124" width="820" height="86" rx="9" fill="#eef2ff"/>
   <rect x="40" y="124" width="6" height="86" rx="3" fill="#6366f1"/>
   <text x="66" y="152" font-size="13" font-weight="700" fill="#6366f1">L1</text>
-  <text x="100" y="152" font-size="16" font-weight="700" fill="#0f172a">CLAUDE.md · AGENTS.md</text>
-  <text x="100" y="175" font-size="13.5" fill="#475569">persona · router menu · mode gates · hard rules</text>
-  <text x="100" y="195" font-size="12.5" fill="#818cf8">the router, not a manual — answers three questions only</text>
+  <text x="100" y="152" font-size="16" font-weight="700" fill="#0f172a">CLAUDE.md</text>
+  <text x="100" y="175" font-size="13.5" fill="#475569">persona · opening behaviour · mode gates · hard rules</text>
+  <text x="100" y="195" font-size="12.5" fill="#818cf8">global and stable — never repeats anything in MEMORY.md</text>
   <text x="632" y="163" font-size="14" font-weight="600" fill="#334155">~6 KB</text>
   <text x="762" y="163" font-size="13" font-weight="700" fill="#6366f1">ALWAYS</text>
 
@@ -22,8 +22,8 @@
   <rect x="40" y="222" width="6" height="86" rx="3" fill="#0891b2"/>
   <text x="66" y="250" font-size="13" font-weight="700" fill="#0891b2">L2</text>
   <text x="100" y="250" font-size="16" font-weight="700" fill="#0f172a">MEMORY.md</text>
-  <text x="100" y="273" font-size="13.5" fill="#475569">one line per memory file · recent log · project index</text>
-  <text x="100" y="293" font-size="12.5" fill="#22a6c3">an index, never a container — links core.md, never state.md</text>
+  <text x="100" y="273" font-size="13.5" fill="#475569">project list (the menu's only source) · rules · recent log</text>
+  <text x="100" y="293" font-size="12.5" fill="#22a6c3">trigger words, not summaries — links core.md, never state.md</text>
   <text x="632" y="261" font-size="14" font-weight="600" fill="#334155">16 KB max</text>
   <text x="762" y="261" font-size="13" font-weight="700" fill="#0891b2">ALWAYS</text>
 
@@ -50,5 +50,5 @@
   <text x="632" y="480" font-size="14" font-weight="600" fill="#334155">unbounded</text>
   <text x="762" y="480" font-size="12.5" font-weight="700" fill="#64748b">WHEN NAMED</text>
 
-  <text x="40" y="540" font-size="13" fill="#64748b">Enforced by <tspan font-weight="700" fill="#0f172a">/save-progress</tspan> — measures before writing, proposes a split on overflow, overwrites state, rolls the index.</text>
+  <text x="40" y="540" font-size="13" fill="#64748b">Enforced by <tspan font-weight="700" fill="#0f172a">/save-progress</tspan> — a commit you run: prints the index size every time, proposes splits, overwrites state.</text>
 </svg>

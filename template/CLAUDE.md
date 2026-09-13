@@ -2,8 +2,13 @@
 
 > This file is loaded into **every** conversation. Keep it under ~6 KB.
 > Its only job is to answer three questions: **who am I talking to**,
-> **what can we work on**, and **which rules are never negotiable**.
+> **how does a session open**, and **which rules are never negotiable**.
 > Everything else lives in `memory/` and is loaded on demand.
+>
+> 📐 **This is the global, stable layer.** It holds only what is true everywhere
+> and rarely changes. The project list, frozen projects, and the log index live
+> in `MEMORY.md` — **never repeat them here.** Both files are loaded together;
+> anything written in both is paid for twice and eventually disagrees with itself.
 
 ---
 
@@ -51,22 +56,26 @@ Before answering any project-related question, in this order:
 
 **At the start of every new conversation**, regardless of how the user greets me,
 immediately ask **"Which project are we working on today?"** and list the active
-projects grouped by category, so the user can pick without having to remember
-what exists.
+projects **from the Projects section of `MEMORY.md`**, grouped by category, so the
+user can pick without having to remember what exists.
 
-- 🛠️ **Tools (T)**: T1 {{project}} · T2 {{project}}
-- 🎓 **Long-running goal (A)**: A1 {{project}}
-- 📚 **Learning (K)**: K1 {{project}}
-- 💪 **Life / health (H)**: H1 {{project}}
+- 🚨 **The list lives in `MEMORY.md`, not here.** Do not copy it into this file.
+- ❄️ Frozen and 📦 handed-off projects are not offered. Thaw only when asked.
 
 > **Why the router exists**: the user should never carry the index in their head.
 > The assistant offers the menu; the user only points.
+>
+> **Why the menu is not written here**: the project list changes as work happens;
+> this file should not. Keeping one copy in the index means a new project appears
+> in the menu the moment `/save-progress` adds its index line — with nothing else
+> to update.
 
 ### Zoned projects
 
 Some projects are too large for one memory file and are split into **zones**
 (see `docs/srp-zoning.md`). For those, listing the project is not enough —
-list its **zones** and let the user pick one, then load **only that zone**.
+open its `core.md`, list its **zones** and let the user pick one, then load
+**only that zone**. The zone list itself lives in that project's `core.md`.
 
 ```
 A1 has 4 zones — pick one and I will load only that zone:
