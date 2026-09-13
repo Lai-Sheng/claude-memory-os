@@ -220,7 +220,7 @@ grep -rn "{{" ~/.claude/CLAUDE.md ~/AgentMemory/
 ```
 
 ```powershell
-Select-String -Pattern "{{" -Path ~\.claude\CLAUDE.md, ~\AgentMemory\* -Recurse
+Get-ChildItem -Recurse -File ~\.claude\CLAUDE.md, ~\AgentMemory | Select-String -SimpleMatch "{{"
 ```
 
 **印出來的每一行都是你還沒填的佔位符。** 印不出東西以後，從

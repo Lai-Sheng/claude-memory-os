@@ -236,7 +236,7 @@ grep -rn "{{" ~/.claude/CLAUDE.md ~/AgentMemory/
 ```
 
 ```powershell
-Select-String -Pattern "{{" -Path ~\.claude\CLAUDE.md, ~\AgentMemory\* -Recurse
+Get-ChildItem -Recurse -File ~\.claude\CLAUDE.md, ~\AgentMemory | Select-String -SimpleMatch "{{"
 ```
 
 Every line it prints is a placeholder you still owe. When it prints nothing,

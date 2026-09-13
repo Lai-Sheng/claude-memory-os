@@ -107,6 +107,15 @@ directory is keyed to the **working directory**. Point your memory root there,
 start a session from a different folder, and you get a different — possibly
 empty — store.
 
+### Fixed
+
+- **The PowerShell placeholder self-check never worked.** v0.1.0 shipped
+  `Select-String -Pattern "{{" -Path ... -Recurse`, but `Select-String` has no
+  `-Recurse` parameter in Windows PowerShell 5.1 — the command errors out instead
+  of listing placeholders. Found by re-running the install for this release. It is
+  now `Get-ChildItem -Recurse -File ... | Select-String -SimpleMatch "{{"`, which
+  reports the same 51 placeholder lines as the bash `grep`.
+
 ### Removed
 
 - **Codex support** — `template/AGENTS.md`, `docs/codex.md`, and the Codex install
@@ -116,7 +125,8 @@ empty — store.
 ### Verified for this release
 
 - Install commands re-run from a fresh clone against an isolated `HOME` on
-  Windows 11 · Git Bash and Windows PowerShell 5.1.
+  Windows 11 · Git Bash and Windows PowerShell 5.1: exit 0, all 12 template files
+  landed, and both placeholder self-checks report 51 lines.
 - No internal links broken in `examples/`; no placeholders left in it.
 - See [README → Status & testing](README.md#status--testing) for what is *not*
   verified.
